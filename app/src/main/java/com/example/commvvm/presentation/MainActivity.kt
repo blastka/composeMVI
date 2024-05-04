@@ -3,24 +3,28 @@ package com.example.commvvm.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.Observer
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import com.example.commvvm.R
 
 
 class MainActivity : ComponentActivity() {
@@ -29,48 +33,44 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            Create()
+            Create("first")
         }
     }
 }
 
-@Composable
-@Preview
-fun TestPReview(){
-    Create()
-}
 
 @Composable
-fun Create() {
-    Row(
+fun Create(name: String) {
+    Card(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
-        horizontalArrangement = Arrangement.SpaceEvenly
+            .fillMaxWidth()
+            .padding(6.dp),
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(5.dp)
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth(0.5f)
-                .background(Color.Blue),
-            verticalArrangement = Arrangement.SpaceAround,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = "kokee1")
-            Text(text = "hello1")
-            Text(text = "alufalifa1")
-        }
-        Column(
-            modifier = Modifier
+                .background(Color.White) // здесь указывается цвет фона
+                .padding(16.dp)
                 .fillMaxWidth()
-                .fillMaxHeight()
-                .background(Color.Yellow),
-            verticalArrangement = Arrangement.SpaceAround,
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "kokee2")
-            Text(text = "hello2")
-            Text(text = "alufalifa2")
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.rasmus),
+                    contentDescription = "image",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .size(164.dp)
+                        .clip(CircleShape)
+                )
+                Column {
+                    Text(text = name)
+                    Text(text = name)
+                }
+            }
         }
     }
 }
